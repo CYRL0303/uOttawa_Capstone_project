@@ -1,0 +1,28 @@
+System Control Functions 
+
+User Interface Layer
+The User Interface Layer serves as the interaction point between the user and the system. Through a web-based interface, users can log in, search for books, and initiate retrieval commands. Once a user scans a QR code and selects a book, a retrieval request is sent to the backend server and forwarded to the control unit. This layer’s primary functions include managing user authentication, processing book search queries, and sending real-time updates such as book availability and retrieval status.
+
+Command Processing Layer
+The Command Processing Layer translates high-level user commands into actionable tasks for the hardware. Upon receiving a retrieval command, it breaks down the request into smaller motion tasks, such as aligning the robotic arm horizontally, adjusting the arm vertically, and engaging the gripper mechanism. It continuously monitors sensor inputs to ensure that each action is executed safely and correctly. This layer is also responsible for path planning, motion sequencing, and handling any safety interruptions or errors detected during the process. Status updates are sent back to the User Interface Layer to inform the user about the progress of the retrieval.
+
+Motion Control Layer
+The Motion Control Layer handles direct execution of motor commands and sensor data processing. It controls the linear actuator for horizontal positioning, the vertical actuator for arm height adjustment, and the gripper mechanism for handling books. Sensor feedback, such as distance measurements and book alignment checks, is used to refine movements in real time, ensuring accurate and synchronized operation of all components. This layer adjusts speed and position dynamically based on environmental conditions to achieve optimal performance.
+
+
+
+System Operation Workflow
+Book Search and Request
+When a user logs in and searches for a book, the system verifies its availability. If the book is available, the user initiates a retrieval request. This command is transmitted to the STM32 control unit, which processes the request and prepares the hardware for retrieval.
+
+Positioning the Robotic Arm
+The command processing layer calculates the optimal path and sends movement instructions to the motion control layer. The linear actuator moves the robotic arm horizontally to align with the target shelf. The arm’s vertical actuator then positions it at the correct height. Proximity sensors validate the arm’s position, and the control unit ensures the arm is accurately aligned before proceeding.
+
+Book Gripping and Pickup
+Once the arm is in position, the gripper mechanism is activated. The gripper uses its infrared sensors to confirm the book’s alignment and then gently closes around the book’s spine. Pressure sensors within the gripper measure the applied force to prevent damage. After a secure grip is achieved, the control unit signals the robotic arm to retract.
+
+Book Delivery and User Confirmation
+The robotic arm retracts and moves the gripped book to the designated collection point. Upon placing the book, the system sends a final confirmation to the user interface, notifying the user that the book is ready for pickup. The status is updated in real-time, and the system awaits the user’s acknowledgment.
+
+System Idle and Recharging
+After completing the retrieval operation, the control unit sets the system to an idle state. The robotic arm returns to its default position, and if the battery is low, the system initiates automatic recharging using the wireless charging station. The system remains in standby mode until the next command is received.
