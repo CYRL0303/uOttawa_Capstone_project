@@ -1,5 +1,4 @@
-Automatic Book Management System: Project Overview
-
+Automatic Book Management System
 
 A cutting-edge solution that automates book retrieval and organization using a robotic arm and a web-based interface. Ideal for libraries, bookstores, and private collections.
 
